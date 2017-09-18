@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, Polyline } from 'react-leaflet';
+import { Map, TileLayer, GeoJSON } from 'react-leaflet';
 
 //components
 import MapStations from './MapStations';
 import ViennaPoliLynes from './ViennaPoliLynes';
 
+
+import CustomLegendControl from './CustomLegendControl';
 //css
 import './css/components/map.css'
 
@@ -19,8 +21,8 @@ config.params = {
   center: [ 48.20849, 16.37208 ],
   zoomControl: false,
   zoom: 12,
-  maxZoom: 19,
-  minZoom: 10,
+  //maxZoom: 19,
+  //minZoom: 10,
   scrollwheel: false,
   legends: true,
   infoControl: false,
@@ -35,10 +37,6 @@ config.tileLayer = {
     accessToken: ''
   }
 };
-
-// array to store unique names of Brooklyn subway lines,
-// this eventually gets passed down to the Filter component
-let metroVLineNames = [];
 
 //main component
 class SimpleExample extends Component {
@@ -66,7 +64,8 @@ class SimpleExample extends Component {
     //sends individual data to MapStations component for rendering on the map
     return geojsonData.features.map((cord, index) => {
         return (
-              <MapStations key={index} mapStationData={cord} />
+              <MapStations key={index} mapStationData={cord} >
+              </MapStations>
         );
     });
   }
@@ -76,13 +75,7 @@ class SimpleExample extends Component {
     const configTileLayer = this.state.map.tileLayer;
     const position = [configParams.center[0], configParams.center[1]];
 
-    const testMeHard = () => {
-      return geojsonData.features.map((cord, index) => {
-        return (
-              <MapStations key={index} mapStationData={cord} />
-        );
-      });
-    };
+
 
     return (
       <Map center={position} zoom={configParams.zoom} minZoom={configParams.minZoom} maxZoom={configParams.maxZoom} >
@@ -90,8 +83,10 @@ class SimpleExample extends Component {
           attribution={configTileLayer.attribution}
           url={configTileLayer.uri}
         />
-        <ViennaPoliLynes />
-
+        <ViennaPoliLynes >
+          <GeoJSON data={geojsonData} />
+        </ViennaPoliLynes>
+        <CustomLegendControl />
         {this.mapStationData()}
       </Map>
     );

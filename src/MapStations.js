@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Marker, Popup, CircleMarker } from 'react-leaflet';
+import { Popup, CircleMarker } from 'react-leaflet';
 
 class MapStations extends Component {
   render() {
@@ -11,7 +11,7 @@ class MapStations extends Component {
     //discription
     const mapName = mapStationData.properties.name;
     const mapColor = mapStationData.properties.color;
-    
+
     return(
       <CircleMarker center={position} radius={6} fillColor={mapColor} color={'#fff'} weight={1} opacity={0.5} fillOpacity={0.8} >
 
@@ -25,13 +25,3 @@ class MapStations extends Component {
 }
 
 export default MapStations;
-
-/*
-<CircleMarker center={position} radius={6} fillColor={'red'} color={'#fff'} weight={1} opacity={0.5} fillOpacity={0.8} >
-  <Marker position={ position }>
-    <Popup>
-        <span>Metro Station: {mapName}.</span>
-    </Popup>
-  </Marker>
-</CircleMarker>
-*/
