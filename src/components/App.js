@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 //components
-import Map from './Map';
+import Map from './mapComponents/Map';
 
 // App component
 class App extends Component {

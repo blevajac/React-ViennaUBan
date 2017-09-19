@@ -4,13 +4,13 @@ import L from 'leaflet';
 import {  MapControl } from 'react-leaflet';
 
 //css
-import './css/custom-info-control.css'
+import '../../../css/custom-info-control.css'
 
 //main component
 class CustomInfoControl extends MapControl {
   componentWillMount() {
     const centerControl = L.control({position: 'topleft'});
-    
+
     const jsx = (
       <div {...this.props}>
         <h4>Viena Metro Line</h4>

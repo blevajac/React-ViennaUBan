@@ -2,7 +2,7 @@ import L from 'leaflet';
 import {  MapControl } from 'react-leaflet';
 
 //css
-import './css/custom-legend-controls.css'
+import '../../../css/custom-legend-controls.css'
 
 function getColor(d) {
     return d > 5 ? '#996633' :

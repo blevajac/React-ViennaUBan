@@ -6,16 +6,16 @@ import MapStations from './MapStations';
 import ViennaPoliLynes from './ViennaPoliLynes';
 
 //custom map components
-import CustomInfoControl from './CustomInfoControl';
-import CustomLegendControl from './CustomLegendControl';
-import CustomControlZoom from './CustomControlZoom';
-import CustomControlScale from './CustomControlScale';
+import CustomInfoControl from './customMapControls/CustomInfoControl';
+import CustomLegendControl from './customMapControls/CustomLegendControl';
+import CustomControlZoom from './customMapControls/CustomControlZoom';
+import CustomControlScale from './customMapControls/CustomControlScale';
 
 //css
-import './css/components/map.css'
+import '../../css/components/map.css'
 
 //data
-import geojsonData from './vienna_metro_lines.json';
+import geojsonData from '../../data/vienna_metro_lines.json';
 
 //--------------
 // store the map configuration properties in an object,

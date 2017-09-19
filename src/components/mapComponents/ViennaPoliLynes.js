@@ -3,7 +3,7 @@ import { Polyline, Tooltip } from 'react-leaflet';
 
 
 //data
-import geojsonDataByLines from './vienna_metro_lines_byLines.json';
+import geojsonDataByLines from '../../data/vienna_metro_lines_byLines.json';
 
 //main component
 class ViennaPoliLynes extends Component {
