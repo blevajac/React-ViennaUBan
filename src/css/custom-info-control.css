@@ -1,6 +1,6 @@
 .info {
     padding: 6px 8px;
-    font: 14px/16px Arial, Helvetica, sans-serif;
+
     background: white;
     background: rgba(255,255,255,0.8);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
@@ -9,4 +9,29 @@
 .info h4 {
     margin: 0 0 5px;
     color: #777;
+}
+
+.info h5 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
+ul {
+    list-style: none;
+    margin-top: 4px;
+    margin-left: 0;
+    padding-left: 1.2em;
+    text-indent: -1.2em;
+}
+
+li {
+  font: 14px Arial, Helvetica, sans-serif;
+}
+
+li:before {
+    content: "►";
+    display: block;
+    float: left;
+    width: 1.2em;
+    color: black;
 }

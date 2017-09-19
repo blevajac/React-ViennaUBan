@@ -26,7 +26,7 @@ class CustomLegendControl extends MapControl {
     // loop through our density intervals and generate a label with a colored square for each interval
       for (var i = 0; i < grades.length; i++) {
           div.innerHTML +=
-          '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' + labels[i] + '<br>';
+          '<i style="background:' + getColor(grades[i] + 1) + '"></i>  Metro line: '+ labels[i] + '<br>';
       }
 
       return div;

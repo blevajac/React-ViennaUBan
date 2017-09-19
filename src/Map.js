@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, GeoJSON } from 'react-leaflet';
+import { Map, TileLayer, GeoJSON, LayersControl, LayerGroup} from 'react-leaflet';
 
 //components
 import MapStations from './MapStations';
 import ViennaPoliLynes from './ViennaPoliLynes';
 
-
+//custom map components
+import CustomInfoControl from './CustomInfoControl';
 import CustomLegendControl from './CustomLegendControl';
+import CustomControlZoom from './CustomControlZoom';
+import CustomControlScale from './CustomControlScale';
+
 //css
 import './css/components/map.css'
 
@@ -21,8 +25,8 @@ config.params = {
   center: [ 48.20849, 16.37208 ],
   zoomControl: false,
   zoom: 12,
-  //maxZoom: 19,
-  //minZoom: 10,
+  maxZoom: 19,
+  minZoom: 10,
   scrollwheel: false,
   legends: true,
   infoControl: false,
@@ -30,13 +34,23 @@ config.params = {
 };
 config.tileLayer = {
   uri: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+  uriDark: 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
   params: {
     minZoom: 11,
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+    attribution: '&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors',
     id: '',
     accessToken: ''
   }
 };
+
+//--------------------------------------
+//After zoomIn or zoomOute resets the map to its defined position
+const DEFAULT_VIEWPORT = {
+  center: [ 48.20849, 16.37208 ],
+  zoom: 12,
+}
+//--------------------------------------
+const { BaseLayer, Overlay } = LayersControl;
 
 //main component
 class SimpleExample extends Component {
@@ -45,7 +59,12 @@ class SimpleExample extends Component {
     this.state = {
         map: config,
         geojsonData: null,
-        numEntrances: null
+        numEntrances: null,
+        animate: true,
+        latlng: {
+          lat: 48.20849,
+          lng: 16.37208,
+        },
     };
   }
 
@@ -57,6 +76,7 @@ class SimpleExample extends Component {
     this.setState({
       numEntrances: geojsonData.features.length,
       geojsonData,
+      viewport: DEFAULT_VIEWPORT,
     });
   }
 
@@ -64,30 +84,72 @@ class SimpleExample extends Component {
     //sends individual data to MapStations component for rendering on the map
     return geojsonData.features.map((cord, index) => {
         return (
-              <MapStations key={index} mapStationData={cord} >
-              </MapStations>
+              <MapStations key={index} mapStationData={cord} />
         );
     });
   }
+//---------------------------------------------------------
+  //After zoomIn or zoomOute resets the map to its defined position
+  onClickReset = () => {
+    this.setState({ viewport: DEFAULT_VIEWPORT })
+  }
 
+  onViewportChanged = viewport => {
+    this.setState({ viewport })
+  }
+//---------------------------------------------------------
+//---------------------------------------------------------
+  //animate controls
+  handleClick = e => {
+    this.setState({
+      latlng: e.latlng,
+      viewport: DEFAULT_VIEWPORT
+    })
+  }
+//---------------------------------------------------------
   render() {
     const configParams = this.state.map.params;
     const configTileLayer = this.state.map.tileLayer;
-    const position = [configParams.center[0], configParams.center[1]];
-
-
+    const position = this.state.latlng;
 
     return (
-      <Map center={position} zoom={configParams.zoom} minZoom={configParams.minZoom} maxZoom={configParams.maxZoom} >
-        <TileLayer
-          attribution={configTileLayer.attribution}
-          url={configTileLayer.uri}
-        />
-        <ViennaPoliLynes >
-          <GeoJSON data={geojsonData} />
-        </ViennaPoliLynes>
-        <CustomLegendControl />
-        {this.mapStationData()}
+      <Map center={position} zoom={configParams.zoom} minZoom={configParams.minZoom} maxZoom={configParams.maxZoom} zoomControl={configParams.zoomControl}
+           onViewportChanged={this.onViewportChanged}  viewport={this.state.viewport}
+           animate={this.state.animate} onClick={this.handleClick}
+      >
+          <LayersControl position="topright">
+              <BaseLayer checked name="Carto - BaseMap Light">
+                <TileLayer
+                  attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                  url={configTileLayer.uri}
+                />
+              </BaseLayer>
+              <BaseLayer name="Carto - BaseMap Dark">
+                <TileLayer
+                  attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+                  url={configTileLayer.uriDark}
+                />
+              </BaseLayer>
+
+              <Overlay checked name="Vienna Metro Line - Lines">
+                  <LayerGroup>
+                    <ViennaPoliLynes >
+                      <GeoJSON data={geojsonData} />
+                    </ViennaPoliLynes>
+                  </LayerGroup>
+              </Overlay>
+              <Overlay checked name="Vienna Metro Line - Stations">
+                  <LayerGroup>
+                      {this.mapStationData()}
+                  </LayerGroup>
+              </Overlay>
+
+          </LayersControl>
+
+          <CustomInfoControl />
+          <CustomLegendControl />
+          <CustomControlZoom />
+          <CustomControlScale />
       </Map>
     );
   }

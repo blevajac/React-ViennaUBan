@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popup, CircleMarker } from 'react-leaflet';
+import { Popup, CircleMarker, Tooltip } from 'react-leaflet';
 
 class MapStations extends Component {
   render() {
@@ -14,7 +14,9 @@ class MapStations extends Component {
 
     return(
       <CircleMarker center={position} radius={6} fillColor={mapColor} color={'#fff'} weight={1} opacity={0.5} fillOpacity={0.8} >
-
+          <Tooltip sticky>
+            <span>Metro line: {mapName}</span>
+          </Tooltip>
           <Popup>
               <span>Metro Station: {mapName}.</span>
           </Popup>
