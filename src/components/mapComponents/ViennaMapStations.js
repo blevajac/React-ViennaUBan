@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Popup, CircleMarker, Tooltip } from 'react-leaflet';
 
-class MapStations extends Component {
+class ViennaMapStations extends Component {
   render() {
     const { mapStationData } = this.props;
 
@@ -26,4 +26,4 @@ class MapStations extends Component {
   }
 }
 
-export default MapStations;
+export default ViennaMapStations;

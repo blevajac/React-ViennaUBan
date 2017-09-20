@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Map, TileLayer, GeoJSON, LayersControl, LayerGroup} from 'react-leaflet';
 
 //components
-import MapStations from './MapStations';
+import ViennaMapStations from './ViennaMapStations';
 import ViennaPoliLynes from './ViennaPoliLynes';
 
 //custom map components
@@ -65,6 +65,7 @@ class SimpleExample extends Component {
           lat: 48.20849,
           lng: 16.37208,
         },
+        listDataFromChild: null
     };
   }
 
@@ -84,7 +85,7 @@ class SimpleExample extends Component {
     //sends individual data to MapStations component for rendering on the map
     return geojsonData.features.map((cord, index) => {
         return (
-              <MapStations key={index} mapStationData={cord} />
+              <ViennaMapStations key={index} mapStationData={cord} />
         );
     });
   }
@@ -105,6 +106,11 @@ class SimpleExample extends Component {
       latlng: e.latlng,
       viewport: DEFAULT_VIEWPORT
     })
+  }
+//---------------------------------------------------------
+//---------------------------------------------------------
+  myCallback = (dataFromChild) => {
+      this.setState({ listDataFromChild: dataFromChild });      
   }
 //---------------------------------------------------------
   render() {
@@ -133,7 +139,7 @@ class SimpleExample extends Component {
 
               <Overlay checked name="Vienna Metro Line - Lines">
                   <LayerGroup>
-                    <ViennaPoliLynes >
+                    <ViennaPoliLynes changedMetroLine={this.state.listDataFromChild}>
                       <GeoJSON data={geojsonData} />
                     </ViennaPoliLynes>
                   </LayerGroup>
@@ -146,7 +152,7 @@ class SimpleExample extends Component {
 
           </LayersControl>
 
-          <CustomInfoControl />
+          <CustomInfoControl callbackFromParent={this.myCallback}/>
           <CustomLegendControl />
           <CustomControlZoom />
           <CustomControlScale />

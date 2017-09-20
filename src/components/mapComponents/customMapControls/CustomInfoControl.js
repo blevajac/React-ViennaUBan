@@ -2,34 +2,35 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import L from 'leaflet';
 import {  MapControl } from 'react-leaflet';
+import Combobox from 'react-widgets/lib/Combobox';
 
 //css
 import '../../../css/custom-info-control.css'
+import 'react-widgets/dist/css/react-widgets.css';
+
+let viennaMetroLines = ['All Metro Lines', 'U1', 'U2', 'U3', 'U4', 'U6'];
 
 //main component
 class CustomInfoControl extends MapControl {
+  changeMe(e) {
+    this.props.callbackFromParent(e);
+  }
+
   componentWillMount() {
     const centerControl = L.control({position: 'topleft'});
 
     const jsx = (
-      <div {...this.props}>
+      <div >
         <h4>Viena Metro Line</h4>
-        <h5>Map instractions: </h5>
-        <ul>
-          <li>
-            Hover over the lines to see which Metro line it is.
-          </li>
-          <li>
-            Hover over the circles to see which Metro station it is.
-          </li>
-          <li>
-            Click anywhere on the map to get back to default Map zoom and location.
-          </li>
-          <li>
-            Layers control in the upper right corner can change some of the maps options.
-          </li>
-        </ul>
+        <Combobox className="combo-box-box"
+          autoFocus={true}
+          data={viennaMetroLines}
+          defaultValue={"All lines"}
+          onChange={ this.changeMe.bind(this) }
+        />
+
       </div>
+
     );
 
     centerControl.onAdd = function (map) {
