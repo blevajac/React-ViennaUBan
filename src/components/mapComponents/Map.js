@@ -110,7 +110,7 @@ class SimpleExample extends Component {
 //---------------------------------------------------------
 //---------------------------------------------------------
   myCallback = (dataFromChild) => {
-      this.setState({ listDataFromChild: dataFromChild });      
+      this.setState({ listDataFromChild: dataFromChild });
   }
 //---------------------------------------------------------
   render() {

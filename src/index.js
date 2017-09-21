@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import App from './components/App.js';
+//components
+import { Routes } from './router/router';
+
+//css
 import './index.css'; // postCSS import of CSS module
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+ReactDOM.render((
+  <BrowserRouter>
+    <Routes />
+  </BrowserRouter>
+), document.getElementById('root'));
