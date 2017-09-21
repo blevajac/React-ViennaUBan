@@ -15,24 +15,31 @@ class About extends Component {
               <div className=" large-12 column">
                 <h1 className="page-title">React - Vienna Metro Lines</h1>
                 <p className="about-paragraf-opis">
-                  Is an Application to show the exchange rate of the Croatian currency with the currency's of thirteen different Countries, through the time span of 30 days.
+                  Is a Map Application to show the Metro Lines and Metro stations of the city of Vienna, Austria.
                   <br></br>
-                  The Application starts with todays date, and goes 30 days in the past. It uses a price graf to show and highlight the data fetched.
-                  The user can at any time with the use of the mouse scroll over the graf to see the exchange rate of the user designated currency at any given time.
+                  <br></br>
+                  The Application shows all the Vienna Metro Lines (5 in total), and the Metro stations of these Lines.
+                  The Metro Lines are represented with lines and the Metro Stations are represented with circular points on the map.
+                  <br></br>
+                  <br></br>
+                  Each Metro Line and Station have its name shown when the user moves the mouse over it.
+                  <br></br>
+                  <br></br>
+                  User functions:<br></br>
+                  Top left corner: The user can, using the combo box choose to see only the individual metro lines he wants (as a default option, all map lines are shown to the user).
+                  Top right corner: The user can change the visual look of the map. There are two map views:  the default map - white, and the other one - dark. The other function is to see the map without the Map Lines or the Map Points.
                 </p>
                 <p className="about-paragraf-opis">
-                  The data was fetched from <strong>HNB (Hrvatska Narodna Banka) API</strong> and hilighted in this APP.
+                  The Map component used for building this APP was from <strong>Leaflet</strong>.
                   <br></br>
-                  The Idea for building this small App came from the blog post of <em><strong>Brandon Morelli</strong></em> cam from the <strong>"How I built an Interactive 30-Day Bitcoin Price Graph with React and an API"</strong>.
-                  <br></br>
-                  The original graph only showed the data for bitcoins in the designated time. Ive updated the app to show the currency differenc of 13 Country with the Croatian currency "kuna".
+                  The Idea for building this small App came from the interest of trying to see some of the small possibility with map components.
                 </p>
                 <ul>
                     <li>
-                        <a target="_blank" rel="noopener noreferrer" href="http://www.hnb.hr/pregled-dokumenata?p_p_id=101&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_101_struts_action=%2Fasset_publisher%2Fview_content&_101_assetEntryId=1931636&_101_type=content&_101_urlTitle=tecajna-lista-api&inheritRedirect=false">HNB API</a> - API used to fetche the data for the project
+                        <a target="_blank" rel="noopener noreferrer" href="http://leafletjs.com/">Leaflet - a JavaScript library for interactive maps</a>
                     </li>
                     <li>
-                        <a target="_blank" rel="noopener noreferrer" href="https://codeburst.io/how-i-built-an-interactive-30-day-bitcoin-price-graph-with-react-and-an-api-6fe551c2ab1d">How I built an Interactive 30-Day Bitcoin Price Graph with React and an API</a> - Tutorial used for building the price graph
+                        <a target="_blank" rel="noopener noreferrer" href="http://viennamap360.com/vienna-metro-map#.WcPKbjeCyUk">Vienna Metro / U Bahn Map</a> 
                     </li>
                 </ul>
                 <div className="devicon">
